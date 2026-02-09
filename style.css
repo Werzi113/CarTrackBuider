@@ -1,0 +1,20 @@
+
+
+.hidden {
+    display: none;
+}
+
+.grid {
+    border: solid;
+    display: grid;
+}
+
+.grass {
+    background-image: url(assets/grass.png) 
+}
+.road {
+    background-image: url(assets/road.png);
+}
+.water {
+    background-image: url(assets/water.png);
+}
