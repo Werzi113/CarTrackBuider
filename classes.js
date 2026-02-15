@@ -7,8 +7,13 @@ class Cell {
         this.state = state;
         this.rotation = rotation;
 
-        this.domElement.classList.add('bck-img')
-        this.domElement.classList.add(state)
+        this.initializeDomElement(this.domElement)
+    }
+
+    initializeDomElement(el) {
+        el.classList.add('bck-img')
+        el.classList.add(this.state)
+        el.style.transform = 'rotate(' + this.rotation + 'deg)';
     }
 
     rotate(degrees) {
@@ -17,6 +22,8 @@ class Cell {
     }
 
     shiftCellState() {
+        
+        
         const index = states.indexOf(this.state)
         const nextIndex = (index + 1) % states.length
         this.state = states[nextIndex]
@@ -25,6 +32,8 @@ class Cell {
         this.domElement.classList.remove(states[index])
         this.domElement.classList.add(this.state)
     }
+
+
 
 }
 class Point {

@@ -1,10 +1,12 @@
-
-
 const menu = document.querySelector('#menu')
 const editor = document.querySelector('#editor')
 const grid = document.querySelector('#editorGrid')
 
-const resetButton = editor.querySelector('button')
+const resetButton = editor.querySelector('#reset')
+const saveButton = editor.querySelector('#save')
+const loadbutton = editor.querySelector('#load')
+
+
 
 //amount of cells in grid
 const gridSize = 20
@@ -18,6 +20,8 @@ let gridMousePos = new Point()
 document.addEventListener('mousemove', (e) => {
     gridMousePos = getRelativeClickPosition(e)
     
+    
+    
 })
 
 document.addEventListener('keydown', (e) => {
@@ -25,17 +29,37 @@ document.addEventListener('keydown', (e) => {
         const cell = getCell(gridMousePos)
         cell.rotate(90)
     }
+    
 })
 
 grid.addEventListener('click', (e) => {    
     
     const cell = getCell(gridMousePos)
     cell.shiftCellState()
+
+    
+    
 })
 
 resetButton.addEventListener('click', () => {
-    resetGrid()
+    clearGrid()
+    generateGrid()
 })
+
+saveButton.addEventListener('click', () => {
+    this.saveGrid()
+    
+    
+})
+
+loadbutton.addEventListener('click', () => {
+    
+    loadGrid()
+
+
+})
+
+
 
 
 
@@ -71,10 +95,9 @@ function generateGrid() {
     }
 }
 
-function resetGrid() {
+function clearGrid() {
     grid.innerHTML = ''
     cells = []
-    generateGrid()
 }
 
 function getCell(point) {
@@ -91,6 +114,36 @@ function getRelativeClickPosition(mouseEvent) {
     let pt = new Point(x, y) 
 
     return pt
+}
+
+function saveGrid() {
+    //localStorage.setItem('Map ' + Date.now, cells)
+    localStorage.setItem('Map', JSON.stringify(cells))
+}
+
+function loadGrid() {
+    cells = []
+    grid.innerHTML = ''
+    const loaded = JSON.parse(localStorage.getItem('Map'))
+    
+    for (let index = 0; index < loaded.length; index++) {
+        
+        
+        const item = loaded[index]
+        const el = document.createElement('div')
+
+        grid.appendChild(el)
+
+        cells.push(new Cell(el, item.state, item.rotation))
+
+        
+        
+    }
+
+    
+    
+    
+    
 }
 
 
