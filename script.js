@@ -1,3 +1,5 @@
+
+
 const menu = document.querySelector('#menu')
 const editor = document.querySelector('#editor')
 const grid = document.querySelector('#editorGrid')
@@ -5,14 +7,25 @@ const grid = document.querySelector('#editorGrid')
 //amount of cells in grid
 const gridSize = 20
 //size of cell inside grid
-const cellHeight = 54
-const cellWidth = 58
 
-let cellStates = ['grass', 'road', 'water']
+const cellSize = 45
+
+
+const cellStates = ['grass', 'road', 'water']
+let cells = []
+
 
 
 grid.addEventListener('click', (e) => {
-    switchCellState(e.target)
+    
+    
+    
+    const cell = getCell(getRelativeClickPosition(e))
+    cell.shiftCellState()
+    
+
+
+
     
     
     
@@ -22,25 +35,37 @@ generateGrid()
 
 function generateGrid() {
 
-    grid.style.gridTemplateColumns = 'repeat(' + gridSize + ',' + cellWidth + 'px)'
-    grid.style.gridTemplateRows = 'repeat(' + gridSize + ',' + cellHeight + 'px)'
+    grid.style.gridTemplateColumns = 'repeat(' + gridSize + ',' + cellSize + 'px)'
+    grid.style.gridTemplateRows = 'repeat(' + gridSize + ',' + cellSize + 'px)'
 
 
     for (let index = 0; index < gridSize * gridSize; index++) {
         const el = document.createElement('div')
-        el.classList.add('grass')
+
 
         grid.appendChild(el)
+        cells.push(new Cell(el))
+        
+        
     }
 }
 
-function switchCellState(cell) {
-    const i = cellStates.indexOf(cell.classList[0])
-    const nextIndex = (i + 1) % cellStates.length
-    cell.classList.remove(cellStates[i])
-    cell.classList.add(cellStates[nextIndex])
-    
+function getCell(point) {
+    const iX = Math.trunc(point.x/cellSize)
+    const iY = Math.trunc(point.y/cellSize)
+    const index = Number(gridSize * iY) + Number(iX)
+
+    return cells[index]
 }
+function getRelativeClickPosition(clickEvent) {
+    const x = clickEvent.pageX - clickEvent.offsetX
+    const y = clickEvent.pageY - clickEvent.offsetY
+    
+    let pt = new Point(x, y) 
+
+    return pt
+}
+
 
 
 
