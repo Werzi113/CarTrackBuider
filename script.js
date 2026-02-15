@@ -153,4 +153,8 @@ function toggleScreen(hideEl, showEl)  {
 
 
 
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+
+>>>>>>> a6dad60 (visual changes (should be on different branch, but i cant use git))
