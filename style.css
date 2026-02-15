@@ -433,4 +433,64 @@ body {
     transform: translateY(0);
 }
 
+/* Load Maps List */
+.maps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.map-item {
+    padding: 12px 15px;
+    background: #f5f5f5;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95em;
+    font-weight: 500;
+    color: #333;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.map-item:hover {
+    background: #e8f0ff;
+    border-color: #667eea;
+
+}
+
+.map-item:active {
+    transform: translateX(3px);
+}
+
+.maps-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.maps-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.maps-list::-webkit-scrollbar-thumb {
+    background: #667eea;
+    border-radius: 10px;
+}
+
+.maps-list::-webkit-scrollbar-thumb:hover {
+    background: #764ba2;
+}
+
+.empty-maps {
+    text-align: center;
+    color: #999;
+    padding: 30px 20px;
+    font-size: 0.95em;
+}
+
 

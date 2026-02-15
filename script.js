@@ -16,6 +16,10 @@ const mapNameInput = document.querySelector('#mapNameInput')
 const popupOkBtn = document.querySelector('#popupOkBtn')
 const popupCancelBtn = document.querySelector('#popupCancelBtn')
 
+const loadPopup = document.querySelector('#loadPopup')
+const mapsList = document.querySelector('#mapsList')
+const popupLoadCancelBtn = document.querySelector('#popupLoadCancelBtn')
+
 //amount of cells in grid
 const gridSize = 20
 //size of cell inside grid
@@ -35,8 +39,8 @@ newMapBtn.addEventListener('click', () => {
     generateGrid()
 })
 loadMapBtn.addEventListener('click', () => {
-    toggleScreen(menu, editor)
-    loadGrid()
+    loadPopup.classList.remove('hidden')
+    populateMapsList()
 })
 
 document.addEventListener('mousemove', (e) => {
@@ -90,6 +94,10 @@ mapNameInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         popupOkBtn.click()
     }
+})
+
+popupLoadCancelBtn.addEventListener('click', () => {
+    loadPopup.classList.add('hidden')
 })
 
 
@@ -154,10 +162,15 @@ function saveGrid(mapName = 'Map') {
     localStorage.setItem(mapName, JSON.stringify(cells))
 }
 
-function loadGrid() {
+function loadGrid(mapName = 'Map') {
     cells = []
     grid.innerHTML = ''
-    const loaded = JSON.parse(localStorage.getItem('Map'))
+    const loaded = JSON.parse(localStorage.getItem(mapName))
+    
+    if (!loaded) {
+        console.error('Mapa nebyla nalezena')
+        return
+    }
     
     for (let index = 0; index < loaded.length; index++) {        
         const item = loaded[index]
@@ -168,6 +181,28 @@ function loadGrid() {
         cells.push(new Cell(el, item.state, item.rotation))
    
     }
+}
+
+function populateMapsList() {
+    mapsList.innerHTML = ''
+    const keys = Object.keys(localStorage)
+    
+    if (keys.length === 0) {
+        mapsList.innerHTML = '<div class="empty-maps">Žádné uložené mapy</div>'
+        return
+    }
+    
+    keys.forEach(key => {
+        const mapItem = document.createElement('div')
+        mapItem.className = 'map-item'
+        mapItem.textContent = key
+        mapItem.addEventListener('click', () => {
+            toggleScreen(menu, editor)
+            loadGrid(key)
+            loadPopup.classList.add('hidden')
+        })
+        mapsList.appendChild(mapItem)
+    })
 }
 
 function toggleScreen(hideEl, showEl)  {
