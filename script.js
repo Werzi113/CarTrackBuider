@@ -7,29 +7,32 @@ const grid = document.querySelector('#editorGrid')
 //amount of cells in grid
 const gridSize = 20
 //size of cell inside grid
-
 const cellSize = 45
 
-
-const cellStates = ['grass', 'road', 'water']
 let cells = []
 
+let gridMousePos = new Point()
 
-
-grid.addEventListener('click', (e) => {
-    
-    
-    
-    const cell = getCell(getRelativeClickPosition(e))
-    cell.shiftCellState()
-    
-
-
-
-    
-    
+document.addEventListener('mousemove', (e) => {
+    gridMousePos = getRelativeClickPosition(e)
     
 })
+
+document.addEventListener('keydown', (e) => {
+    if (e.key = 'r') {
+        const cell = getCell(gridMousePos)
+        cell.rotate(90)
+    }
+    
+})
+
+grid.addEventListener('click', (e) => {    
+    
+    const cell = getCell(gridMousePos)
+    cell.shiftCellState()
+})
+
+
 
 generateGrid()
 
@@ -57,9 +60,9 @@ function getCell(point) {
 
     return cells[index]
 }
-function getRelativeClickPosition(clickEvent) {
-    const x = clickEvent.pageX - clickEvent.offsetX
-    const y = clickEvent.pageY - clickEvent.offsetY
+function getRelativeClickPosition(mouseEvent) {
+    const x = mouseEvent.pageX - grid.offsetLeft
+    const y = mouseEvent.pageY - grid.offsetTop
     
     let pt = new Point(x, y) 
 

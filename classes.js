@@ -11,8 +11,9 @@ class Cell {
         this.domElement.classList.add(state)
     }
 
-    rotate() {
-
+    rotate(degrees) {
+        this.rotation = (this.rotation + degrees)
+        this.domElement.style.transform = 'rotate(' + this.rotation + 'deg)';
     }
 
     shiftCellState() {
@@ -23,8 +24,6 @@ class Cell {
 
         this.domElement.classList.remove(states[index])
         this.domElement.classList.add(this.state)
-        
-        
     }
 
 }
