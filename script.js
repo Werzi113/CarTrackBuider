@@ -11,6 +11,11 @@ const newMapBtn = document.querySelector('#newMapBtn')
 const loadMapBtn = document.querySelector('#loadMapBtn')
 const backToMenuBtn = editor.querySelector('#backToMenu')
 
+const savePopup = document.querySelector('#savePopup')
+const mapNameInput = document.querySelector('#mapNameInput')
+const popupOkBtn = document.querySelector('#popupOkBtn')
+const popupCancelBtn = document.querySelector('#popupCancelBtn')
+
 //amount of cells in grid
 const gridSize = 20
 //size of cell inside grid
@@ -62,7 +67,29 @@ resetButton.addEventListener('click', () => {
 })
 
 saveButton.addEventListener('click', () => {
-    this.saveGrid()
+    savePopup.classList.remove('hidden')
+    mapNameInput.value = ''
+    mapNameInput.focus()
+})
+
+popupOkBtn.addEventListener('click', () => {
+    const mapName = mapNameInput.value.trim()
+    if (mapName) {
+        saveGrid(mapName)
+        savePopup.classList.add('hidden')
+    } else {
+        alert('Prosím zadej jméno mapy!')
+    }
+})
+
+popupCancelBtn.addEventListener('click', () => {
+    savePopup.classList.add('hidden')
+})
+
+mapNameInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        popupOkBtn.click()
+    }
 })
 
 
@@ -123,9 +150,8 @@ function getRelativeClickPosition(mouseEvent) {
     return pt
 }
 
-function saveGrid() {
-    //localStorage.setItem('Map ' + Date.now, cells)
-    localStorage.setItem('Map', JSON.stringify(cells))
+function saveGrid(mapName = 'Map') {
+    localStorage.setItem(mapName, JSON.stringify(cells))
 }
 
 function loadGrid() {
