@@ -4,6 +4,8 @@ const menu = document.querySelector('#menu')
 const editor = document.querySelector('#editor')
 const grid = document.querySelector('#editorGrid')
 
+const resetButton = editor.querySelector('button')
+
 //amount of cells in grid
 const gridSize = 20
 //size of cell inside grid
@@ -19,11 +21,10 @@ document.addEventListener('mousemove', (e) => {
 })
 
 document.addEventListener('keydown', (e) => {
-    if (e.key = 'r') {
+    if (e.key == 'r') {
         const cell = getCell(gridMousePos)
         cell.rotate(90)
     }
-    
 })
 
 grid.addEventListener('click', (e) => {    
@@ -32,9 +33,26 @@ grid.addEventListener('click', (e) => {
     cell.shiftCellState()
 })
 
+resetButton.addEventListener('click', () => {
+    resetGrid()
+})
+
+
+
+
+
+
 
 
 generateGrid()
+
+
+
+
+
+
+
+
 
 function generateGrid() {
 
@@ -51,6 +69,12 @@ function generateGrid() {
         
         
     }
+}
+
+function resetGrid() {
+    grid.innerHTML = ''
+    cells = []
+    generateGrid()
 }
 
 function getCell(point) {
