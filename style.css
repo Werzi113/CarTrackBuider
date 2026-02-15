@@ -7,14 +7,22 @@
 .grid {
     border: solid;
     display: grid;
+    row-gap: 0;
+    width: fit-content;
 }
 
 .grass {
-    background-image: url(assets/grass.png) 
+    background-image: url(assets/grass.png);
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 .road {
-    background-image: url(assets/road.png);
+    background-image: url(assets/road-curved.png);
+    background-size: contain; 
+    background-repeat: no-repeat;
 }
 .water {
     background-image: url(assets/water.png);
+    background-size: contain; 
+    background-repeat: no-repeat;
 }

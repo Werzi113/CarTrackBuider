@@ -5,7 +5,8 @@ const grid = document.querySelector('#editorGrid')
 //amount of cells in grid
 const gridSize = 20
 //size of cell inside grid
-const cellsize = 50
+const cellHeight = 54
+const cellWidth = 58
 
 let cellStates = ['grass', 'road', 'water']
 
@@ -21,15 +22,14 @@ generateGrid()
 
 function generateGrid() {
 
-    grid.style.gridTemplateColumns = 'repeat(' + gridSize + ',' + cellsize + 'px)'
-    grid.style.gridTemplateRows = 'repeat(' + gridSize + ',' + cellsize + 'px)'
+    grid.style.gridTemplateColumns = 'repeat(' + gridSize + ',' + cellWidth + 'px)'
+    grid.style.gridTemplateRows = 'repeat(' + gridSize + ',' + cellHeight + 'px)'
 
 
     for (let index = 0; index < gridSize * gridSize; index++) {
         const el = document.createElement('div')
         el.classList.add('grass')
-        el.style.width = cellsize
-        el.style.height = cellsize
+
         grid.appendChild(el)
     }
 }
