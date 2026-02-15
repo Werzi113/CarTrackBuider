@@ -6,21 +6,35 @@ const resetButton = editor.querySelector('#reset')
 const saveButton = editor.querySelector('#save')
 const loadbutton = editor.querySelector('#load')
 
-
+const newMapBtn = document.querySelector('#newMapBtn')
+const loadMapBtn = document.querySelector('#loadMapBtn')
+const backToMenuBtn = editor.querySelector('#backToMenu')
 
 //amount of cells in grid
 const gridSize = 20
 //size of cell inside grid
-const cellSize = 45
+const cellSize = 35
 
 let cells = []
 
 let gridMousePos = new Point()
 
+
+backToMenuBtn.addEventListener('click', () => {
+    toggleScreen(editor, menu)
+})
+newMapBtn.addEventListener('click', () => {
+    toggleScreen(menu, editor)
+    clearGrid()
+    generateGrid()
+})
+loadMapBtn.addEventListener('click', () => {
+    toggleScreen(menu, editor)
+    loadGrid()
+})
+
 document.addEventListener('mousemove', (e) => {
     gridMousePos = getRelativeClickPosition(e)
-    
-    
     
 })
 
@@ -48,16 +62,8 @@ resetButton.addEventListener('click', () => {
 
 saveButton.addEventListener('click', () => {
     this.saveGrid()
-    
-    
 })
 
-loadbutton.addEventListener('click', () => {
-    
-    loadGrid()
-
-
-})
 
 
 
@@ -126,25 +132,22 @@ function loadGrid() {
     grid.innerHTML = ''
     const loaded = JSON.parse(localStorage.getItem('Map'))
     
-    for (let index = 0; index < loaded.length; index++) {
-        
-        
+    for (let index = 0; index < loaded.length; index++) {        
         const item = loaded[index]
         const el = document.createElement('div')
 
         grid.appendChild(el)
 
         cells.push(new Cell(el, item.state, item.rotation))
-
-        
-        
+   
     }
-
-    
-    
-    
-    
 }
+
+function toggleScreen(hideEl, showEl)  {
+    hideEl.classList.add('hidden')
+    showEl.classList.remove('hidden')
+}
+
 
 
 
