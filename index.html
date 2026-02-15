@@ -4,11 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
-
+    <title>Car Track Builder</title>
 </head>
 <body>
+<<<<<<< Updated upstream
     
+=======
+    <!-- main menu **start** -->
+    <div id="menu" class="screen">
+        <div class="menu-content">
+            <h1>🚗 Car Track Builder</h1>
+            <p>Vytvoř si svůj vlastní závodní okruh</p>
+            <div class="menu-buttons">
+                <button id="newMapBtn" class="btn btn-primary">📝 Nová mapa</button>
+                <button id="loadMapBtn" class="btn btn-secondary">📂 Načíst mapu</button>
+            </div>
+        </div>
+    </div>
+    <!-- main menu **end** -->
+
+
+
+
+
+    <!-- editor **start** -->
+    <div id="editor" class="screen editor-screen hidden">
+        <header class="header">
+            <div class="header-content">
+                <h1>🚗 Car Track Builder</h1>
+                <button id="backToMenu" class="btn-menu-back">← Menu</button>
+            </div>
+        </header>
+        <div class="editor-container">
+        <div class="editor-controls">
+            <div class="instructions">
+                <h3>Ovládání:</h3>
+                <ul>
+                    <li><strong>Klik</strong> - změnit</li>
+                    <li><strong>R</strong> - otočit</li>
+                </ul>
+            </div>
+            <div class="editor-buttons">
+                <button id="reset" class="btn btn-reset">Reset ↻</button>
+                <button id="save" class="btn btn-save">Save 💾</button>
+            </div>
+        </div>
+        <div class="grid-wrapper">
+            <div id="editorGrid" class="grid"></div>
+        </div>
+        </div>
+    </div>
+    <!-- editor **end** -->
+
+    <script src="classes.js"></script>
+>>>>>>> Stashed changes
     <script src="script.js"></script>
 </body>
 </html>
