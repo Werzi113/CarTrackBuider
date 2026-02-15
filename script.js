@@ -1,3 +1,4 @@
+
 const menu = document.querySelector('#menu')
 const editor = document.querySelector('#editor')
 const grid = document.querySelector('#editorGrid')
