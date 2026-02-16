@@ -42,3 +42,58 @@ class Point {
         this.y = y
     }
 }
+class Car {
+    constructor(positionCell) {
+        this.positionCell = positionCell
+        
+        
+        this.carDomElement = document.createElement('div')
+        this.carDomElement.classList.add('car')
+    
+        this.spawnAt()
+
+        this.mooving = true
+    }
+
+    spawnAt(atCell = this.positionCell) {
+        atCell.domElement.appendChild(this.carDomElement)
+
+    }
+
+    moveTo(targetElement) {
+        this.positionCell.domElement.removeChild(this.carDomElement)
+        this.spawnAt(targetElement)
+    }
+
+    startMoving(cellsGrid) {
+        while (this.mooving) {
+            this.findClosestRoad(cellsGrid)
+            break;
+        }
+    }
+
+    findClosestRoad(cellsGrid) {
+        let neighbors = []
+
+        const pt = getPointOf(this.positionCell)
+
+        neighbors.push(getCell(new Point(pt.x, pt.y + 1)))
+        neighbors.push(getCell(new Point(pt.x, pt.y -1)))
+        neighbors.push(getCell(new Point(pt.x + 1, pt.y)))
+        neighbors.push(getCell(new Point(pt.x - 1, pt.y)))
+
+
+        neighbors.forEach((item) =>{
+            console.log(item);
+            
+        })
+        
+    }
+
+
+
+
+
+
+
+}

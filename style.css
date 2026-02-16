@@ -494,3 +494,14 @@ body {
 }
 
 
+.car {
+    background-color: red;
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: 25px;
+    place-self: center;
+}
+
+
+

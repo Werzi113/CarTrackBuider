@@ -53,6 +53,11 @@ document.addEventListener('keydown', (e) => {
         const cell = getCell(gridMousePos)
         cell.rotate(90)
     }
+    else if (e.key == 'a') {
+        let car = new Car(getCell(gridMousePos))
+
+        car.startMoving(cells)
+    }
     
 })
 
@@ -148,6 +153,15 @@ function getCell(point) {
     const index = Number(gridSize * iY) + Number(iX)
 
     return cells[index]
+}
+
+function getPointOf(cell) {
+    const singleDimIx = cells.indexOf(cell)
+    
+    
+    const iX = Number(singleDimIx) % gridSize
+    const iY = (Number(singleDimIx) - iX) / gridSize
+    return new Point(iX, iY)
 }
 function getRelativeClickPosition(mouseEvent) {
     const x = mouseEvent.pageX - grid.offsetLeft
