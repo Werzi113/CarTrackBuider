@@ -29,6 +29,8 @@ let cells = []
 
 let gridMousePos = new Point()
 
+let editing = true;
+let cars = []
 
 backToMenuBtn.addEventListener('click', () => {
     toggleScreen(editor, menu)
@@ -49,6 +51,7 @@ document.addEventListener('mousemove', (e) => {
 })
 
 document.addEventListener('keydown', (e) => {
+    if (!editing) return
     if (e.key == 'r') {
         const cell = getCell(gridMousePos)
         cell.rotate(90)
@@ -56,9 +59,10 @@ document.addEventListener('keydown', (e) => {
     else if (e.key == 'a') {
         
         
-        let car = new Car(getCell(gridMousePos))
+        const car = new Car(getCell(gridMousePos))
 
         car.startMoving(cells)
+        cars.push(car)
     }
     
 })
@@ -73,11 +77,21 @@ grid.addEventListener('click', (e) => {
 })
 
 resetButton.addEventListener('click', () => {
+    
+    for (let index = 0; index < cars.length; index++) {
+        const item = cars[index];
+        item.stopMoving()
+        item.destroy()
+    }
+    cars = []
+    
+
     clearGrid()
     generateGrid()
 })
 
 saveButton.addEventListener('click', () => {
+    editing = false
     savePopup.classList.remove('hidden')
     mapNameInput.value = ''
     mapNameInput.focus()
@@ -88,13 +102,16 @@ popupOkBtn.addEventListener('click', () => {
     if (mapName) {
         saveGrid(mapName)
         savePopup.classList.add('hidden')
+        editing = true
     } else {
         alert('Prosím zadej jméno mapy!')
     }
+    
 })
 
 popupCancelBtn.addEventListener('click', () => {
     savePopup.classList.add('hidden')
+    editing = true
 })
 
 mapNameInput.addEventListener('keypress', (e) => {

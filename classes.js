@@ -45,12 +45,14 @@ class Point {
 class Car {
     constructor(positionCell) {
         this.positionCell = positionCell
-        
+        this.lastPositionCell = null;
+        this.moveInterval = null;
         
         this.carDomElement = document.createElement('div')
         this.carDomElement.classList.add('car')
     
         this.spawnAt()
+
 
         this.mooving = true
     }
@@ -60,23 +62,35 @@ class Car {
 
     }
 
-    moveTo(targetElement) {
+    moveTo(targetCell) {
+ 
+        
         this.positionCell.domElement.removeChild(this.carDomElement)
-        this.spawnAt(targetElement)
+        this.lastPositionCell = this.positionCell
+        this.positionCell = targetCell;
+        this.spawnAt()
     }
 
     startMoving(cellsGrid) {
         
-        while (this.mooving) {
+        this.moveInterval = setInterval(() => {
             
-            setTimeout(() => {
+            let newCell = this.findClosestRoad(cellsGrid)
+            if (!this.mooving) {
+                this.stopMoving()
+                this.destroy()
+                return
+            }
+            this.moveTo(newCell)     
+        }, 100);
+        
 
-                let newCell = this.findClosestRoad(cellsGrid)
-                this.moveTo(newCell)     
-            }, 1000);
-
-            
-        }
+    }
+    stopMoving() {
+        clearInterval(this.moveInterval)
+    }
+    destroy() {
+        this.carDomElement.remove()
     }
 
     findClosestRoad(cellsGrid) {
@@ -95,12 +109,23 @@ class Car {
 
         for (let index = 0; index < neighbors.length; index++) {
             const item = neighbors[index];
+            if (!item) continue
             if (item.state == 'road' || item.state == 'road-curved') {
-                console.log(item);
                 
-                return item
+                
+                
+                
+                if (item != this.lastPositionCell) {
+                    return item    
+                }
+                
+                
             }
         }
+
+        this.mooving = false
+        console.log('MOOVING FALSE');
+        
         
     }
 

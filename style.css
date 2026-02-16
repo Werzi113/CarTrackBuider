@@ -248,6 +248,9 @@ body {
     border: 1px solid rgba(0, 0, 0, 0.05);
     width: 35px;
     height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .bck-img:hover {
@@ -495,12 +498,17 @@ body {
 
 
 .car {
-    background-color: red;
+    
     width: 20px;
     height: 20px;
     border: none;
     border-radius: 25px;
-    place-self: center;
+    background-image: url(assets/car.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+
+
 }
 
 
