@@ -54,6 +54,8 @@ document.addEventListener('keydown', (e) => {
         cell.rotate(90)
     }
     else if (e.key == 'a') {
+        
+        
         let car = new Car(getCell(gridMousePos))
 
         car.startMoving(cells)
@@ -152,7 +154,13 @@ function getCell(point) {
     const iY = Math.trunc(point.y/cellSize)
     const index = Number(gridSize * iY) + Number(iX)
 
+    
+    
+    
     return cells[index]
+}
+function getSingleDimIndex(point) {
+    return Number(gridSize * point.y) + Number(point.x)
 }
 
 function getPointOf(cell) {

@@ -66,27 +66,41 @@ class Car {
     }
 
     startMoving(cellsGrid) {
+        
         while (this.mooving) {
-            this.findClosestRoad(cellsGrid)
-            break;
+            
+            setTimeout(() => {
+
+                let newCell = this.findClosestRoad(cellsGrid)
+                this.moveTo(newCell)     
+            }, 1000);
+
+            
         }
     }
 
     findClosestRoad(cellsGrid) {
         let neighbors = []
 
-        const pt = getPointOf(this.positionCell)
+        const index = cellsGrid.indexOf(this.positionCell)
+        
+        
+        
 
-        neighbors.push(getCell(new Point(pt.x, pt.y + 1)))
-        neighbors.push(getCell(new Point(pt.x, pt.y -1)))
-        neighbors.push(getCell(new Point(pt.x + 1, pt.y)))
-        neighbors.push(getCell(new Point(pt.x - 1, pt.y)))
+        neighbors.push(cellsGrid[index + gridSize])
+        neighbors.push(cellsGrid[index - gridSize])
+        neighbors.push(cellsGrid[index + 1])
+        neighbors.push(cellsGrid[index - 1])
 
 
-        neighbors.forEach((item) =>{
-            console.log(item);
-            
-        })
+        for (let index = 0; index < neighbors.length; index++) {
+            const item = neighbors[index];
+            if (item.state == 'road' || item.state == 'road-curved') {
+                console.log(item);
+                
+                return item
+            }
+        }
         
     }
 
